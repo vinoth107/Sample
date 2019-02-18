@@ -1,0 +1,175 @@
+1-Why we are going Cucumber? 
+
+a)	Cucumber is a tool that supports Behavior Driven Development (BDD).
+b)	It offers a way to write tests that anybody can understand, regardless of their technical knowledge.
+c)	Gherkin language is used by cucumber.
+
+2-Difference b/w  @Before and Background?
+
+@Before	
+@Before used for technical setup before background. 
+Example: Lunch Browser	Background is a keyword belongs to feature file, Instead of writing common scenario steps of pre condition, it can mention in background. 
+@Before hook gets executed well before any other test scenario.
+
+Background 
+The background is run before each of your scenarios but after any of your Before Hooks.
+Use @Before when you have to do some technical setup before your scenarios
+Use Background when you provide pre-conditions to your scenarios
+
+
+3-Difference b/w Scenario and Scenario outline?
+
+Scenario is one of the core Gherkin structures. Every scenario starts with the keyword “Scenario:” (or localized one) and is followed by an optional scenario title.
+
+Given “Pre Condition”
+
+When “Action”
+
+Then “Post Condition”
+
+
+Scenario outline is similar to scenario structure; the only difference is the provision of multiple inputs.
+•	Scenario outline is a way of parameterization of scenarios.
+•	We can pass both Scenario level data as well as step level data.
+•	It uses the keyword Example 
+•	This scenario outline does iteration in the Data table.
+
+4-How will you skip the Scenario in Cucumber?
+
+@ignore is the annotation to ignore a scenario. “import org.junit.runner”
+
+@Cucumber.Options(features = {"classpath:my_feature.feature"}, 
+tags = {"~@ignore"})
+
+5-If you have 10 Scenario in feature file, how will you execute the particular scenario?
+
+Using  “ tags ” we can run the particular scenario. 
+
+1.	Tag the name in the feature file before the scenario.
+2.	Mention the tagged scenario name in the Test runner to execute the particular scenario.
+
+@RunWith(Cucumber.class)
+@CucumberOptions(features="features",glue={"steps"},format = {"pretty", "html:target/Destination"},tags={"@Test1"})
+public class TestRunner {
+
+}
+
+
+6-Syntax for Test Runner
+
+import org.junit.runner.RunWith;
+
+import cucumber.api.CucumberOptions;
+import cucumber.api.junit.Cucumber;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(features="features",glue={"steps"},format = {"pretty", "html:target/Destination"},tags={"@Test1"})
+public class TestRunner {
+
+}
+
+
+@RunWith 
+
+Executing this class as any JUnit, test class will run all features found on the classpath in the same package as this class
+
+@CucumberOptions
+We can specify the path to feature files, path to step definitions, if we want to run the execution in dry mode or not etc
+
+7-How will you run the failed test cases?
+Using the keyword:  rerun
+Step1:  Give rerun in plug-in option with path.
+plugin = {"pretty", "html:target1","rerun:target/rerun.txt"} //Creates a text file with failed scenarios
+               
+
+Step2: Mention the failed path with annotation “@” in features option to execute.
+
+features = "@target/rerun.txt", //Cucumber picks the failed scenarios from this file
+
+8-How will provide the test data in cucumber?
+Using “ plugin “ option , we will generate the test data in the cucumber.
+plugin = {"pretty", "html:target1}
+
+9-Data Driven in Cucumber?
+•	Cucumber inherently supports data driven testing using Scenario Outline. 
+•	In order to make it data driven we just have to use Scenario Outline along with Examples. 
+•	Test would run twice with two different set of values. Check the parameterization done in scenario
+10-Is Test Runner is mandatory and reason?
+•	We can run the feature file and step definition without Test Runner.
+•	For Suite level execution Test Runner is Mandatory.
+
+11-Cucumber, Main class?
+
+12 -Cucumber Options:
+@CucumberOptions  We can specify the path to feature files, path to step definitions, if we want to run the execution in dry mode or not etc
+@CucumberOptions(features = "C:\\Users\\Cucumber3\\Feature\\addtraffi.feature",
+glue = { "StepDefination" }, 
+plugin = {"html:target1" },
+monochrome= true,
+dryrun=true,
+strict = true,
+tags= tags ={“@Webdriver“})
+
+Features:  Features Options helps Cucumber to locate the Feature file.
+Glue:  Glue Options helps Cucumber to locate the Step Definition file.
+dryRun :  boolean value – check for missing step definition.
+tags :  used to group/ filter cucumber scenarios in the feature file.
+Logical OR : Separate a list of tags by commas for a Logical OR tag expression.
+
+tags ={“@SoapUI,@Functional"}
+
+Logical AND : Specifying multiple tag arguments creates a logical AND between each tag expression
+
+tags ={“@SoapUI","@Functional"}
+
+AND OR NOT : Specifying multiple tag arguments creates a logical AND between each tag expression.
+
+tags ={“@SoapUI,@Functional","~@Regression"},...  ) 
+
+strict: boolean value – fail the execution if there is a missing step.
+monochrome : boolean value – display console output in a readable way.
+
+13-Which Framework is best? Cucumber or TESTNG?
+
+Cucumber	
+
+•	Cucumber is a collaboration tool, which lets non-technical people write executable specifications. Those executable specifications test your app from the outside - like a black box.
+•	Cucumber is not meant to be used as a unit testing tool.
+•	 It allows to write automated acceptance tests, functional requirements and software documentation into one format that would be understandable by non-technical people as well as testing tools
+•	You can implement your tests using the same language you use to discuss them with the business. 
+•	Cucumber adds the overhead of plain English (or other native language) to executable code conversion
+•	Good for acceptance testing	
+
+TestNG
+
+TestNG are unit testing tools. They are great for testing individual classes, but not great for executable specifications that are readable (and writeable) by non-technical people.
+•	It facilitates to test individual classes.
+•	 You can group tests using tags.
+•	 TestNG supports a lot of complicated practices like priorities, grouping, listener etc. 
+•	 Useful when you have to automate large number of test case
+
+14-How will execute the specific feature?
+
+15-Explain Cucumber reports?
+We execute Cucumber Scenarios, it automatically generates an output in the eclipse console by the below option,
+@CucumberOptions( plugin = { “target” } )
+Executed secenario, will save in the folder as mention in the plugin option in html format.
+16-What is BDD?
+Expand as Behavior Driven Development .
+It lets us define application behavior in plain meaningful English text using a simple grammar defined by a language called Gherkin.
+
+
+17-Diff b/w BDD & TDD?
+
+BDD
+
+*Behavior centered development process. 
+*BDD tests are written in readable format using Given-When-Then steps.  
+*BDD tests are readable by non-programmers. 
+
+TDD
+
+*Test centered development process.
+*TDD tests are written using programming languages like Ruby, JAVA etc.
+*TDD tests are difficult to read by non-programmers
+

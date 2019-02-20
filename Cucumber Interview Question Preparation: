@@ -3,6 +3,7 @@
 a)	Cucumber is a tool that supports Behavior Driven Development (BDD).
 b)	It offers a way to write tests that anybody can understand, regardless of their technical knowledge.
 c)	Gherkin language is used by cucumber.
+d)	The main feature of Cucumber is that it focuses on User Acceptance testing. 
 
 2-Difference b/w  @Before and Background?
 
@@ -99,6 +100,19 @@ plugin = {"pretty", "html:target1}
 •	For Suite level execution Test Runner is Mandatory.
 
 11-Cucumber, Main class?
+You do not need any Runner class. Just call the static main method of Main class that corresponds to running cucumber.
+For additional parameters like tags or plugin use "-t","@Tags". Important the feature file path has to be the last option.
+Example:
+public static void main(String[] args) throws Throwable {
+
+           //Your code to get feature file full path        
+
+            Main.main(new String[]{"-g", "classpath to step definition file", "Full path to feature file"});
+
+          // My stepdefinition is inside java package at cucumber.sample.test
+          // My feature file is inside src/test/resources/features/samplethree.feature
+
+        }
 
 12 -Cucumber Options:
 @CucumberOptions  We can specify the path to feature files, path to step definitions, if we want to run the execution in dry mode or not etc
@@ -149,6 +163,15 @@ TestNG are unit testing tools. They are great for testing individual classes, bu
 •	 Useful when you have to automate large number of test case
 
 14-How will execute the specific feature?
+
+Using @tag option, we can execute the specific feature.
+Step1: Tag the Specific feature file.
+Step2:  Mention the tag in Runner class to execute.
+
+Example:
+@tag
+Feature: Title of your feature
+  I want to use this template for my feature file
 
 15-Explain Cucumber reports?
 We execute Cucumber Scenarios, it automatically generates an output in the eclipse console by the below option,
